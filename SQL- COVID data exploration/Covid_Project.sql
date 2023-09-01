@@ -205,19 +205,80 @@ ORDER BY
     cd.continent
    ,cd.location
 
+-----------------------------------------------------------------------------------------------------------------------------------
 
+---- Sum of the new vaccinations (= total vaccinations) and the rolling vaccinations by location and date
 
+SELECT
+    cd.continent
+   ,cd.location 
+   ,cd.date
+   ,cd.population
+   ,cv.new_vaccinations
+   ,SUM(CAST(cv.new_vaccinations as bigint)) OVER (PARTITION BY cd.location ORDER BY cd.location, cd.date) AS rolling_vaccinations
+FROM 
+    CovidDeaths AS cd 
+JOIN 
+    CovidVaccinations AS cv
+ON 
+    cd.location = cv.location 
+    AND cd.date = cv.date 
+WHERE 
+    cv.new_vaccinations IS NOT NULL
+ORDER BY
+    2,3
 
+	--- order by location and date orders in alphabetical and chronological order
 
+-----------------------------------------------------------------------------------------------------------------------------------
 
+---- Using CTE to look at the percentage of population vaccinated. (rolling_vaccinations/population)*100
 
+WITH cte_popvac AS (
+SELECT
+    cd.continent
+   ,cd.location 
+   ,cd.date
+   ,cd.population
+   ,cv.new_vaccinations
+   , SUM(CAST(cv.new_vaccinations AS bigint)) OVER (PARTITION BY cd.location ORDER BY cd.location, cd.date) AS rolling_vaccinations
+FROM 
+    CovidDeaths AS cd 
+JOIN 
+    CovidVaccinations AS cv
+ON 
+    cd.location = cv.location 
+    AND cd.date = cv.date 
+WHERE 
+    cv.new_vaccinations IS NOT NULL)
 
+SELECT 
+	*
+	,(rolling_vaccinations/population)*100 AS percentage_pop_vaccinated
+FROM 
+	cte_popvac
 
+-----------------------------------------------------------------------------------------------------------------------------------
 
+ ---- Creating a veiw to store data for subsequent visualisation in Tableau/Power bi
+	
+CREATE 
+	VEIW percentage_pop_vaccinated AS
+SELECT 
+	cd.continent 
+	,cd.location 
+	,cd.date 
+	,cv.new_vaccinations
+	,SUM(cv.new_vaccinations) OVER(PARTITION BY cv.location ORDER BY cv.location ,cv.date DESC)
+	AS rolling_people_vaccinated
+FROM 
+	coviddeaths_csv AS cd 
+JOIN 
+	covidvacinations_csv AS cv
+	ON cd.location = cv.location 
+	AND cd.`date` = cv.`date` 
+WHERE 
+	cv.new_vaccinations IS NOT NULL
 
-
-
-
-
-
+-----------------------------------------------------------------------------------------------------------------------------------
 
