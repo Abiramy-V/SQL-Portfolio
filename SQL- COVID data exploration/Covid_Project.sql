@@ -1,7 +1,7 @@
 ---- Dataset: Coronavirus (COVID-19) Deaths
 ---- Source: https://ourworldindata.org/covid-deaths
 ---- Queried using MS SQL SERVER
----- SQL skills:
+---- SQL skills: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
 
 -----------------------------------------------------------------------------------------------------------------------------------
 ---- The two tables that are used in this project are:
@@ -37,7 +37,7 @@ SELECT
 FROM 
      CovidDeaths
 WHERE 
-     location = 'CANADA'
+     location = 'canada'
 ORDER BY 
         total_cases DESC 
 
@@ -48,7 +48,7 @@ ORDER BY
 SELECT 
       TOP 1
       location
-      ,max(total_deaths) AS deathtoll
+     ,max(total_deaths) AS deathtoll
 FROM 
      CovidDeaths
 WHERE 
@@ -64,12 +64,12 @@ ORDER BY
 ---- Total Cases vs Total Deaths in the United Kingdom
 
 SELECT
-      Location
-     ,date
-     ,total_cases
+     Location
+    ,date
+    ,total_cases
     ,total_deaths
     ,(total_deaths/total_cases)*100 AS deathrate
-From 
+FROM
     CovidDeaths
 WHERE 
      1=1  
@@ -80,5 +80,144 @@ ORDER BY
      Total_deaths DESC
 
 -----------------------------------------------------------------------------------------------------------------------------------
+
+---- Total Cases vs Population
+
+SELECT
+      Location
+     ,date
+     ,total_cases
+    ,(total_cases/population)*100 AS covidcases_percentage
+FROM
+    CovidDeaths
+WHERE 
+     1=1  
+     AND location = 'united kingdom' 
+     AND total_deaths IS NOT NULL
+     AND total_cases IS NOT NULL
+ORDER BY 
+     Total_cases DESC
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+---- Counries with the highest infection rate in comparison to population
+  
+SELECT
+      Location
+     ,population
+     ,MAX(total_cases) AS HighestInfectionCount
+     ,ROUND(max((total_cases/population))*100, 4) AS PercentPopulationInfected
+FROM 
+    CovidDeaths
+GROUP BY 
+    Location
+   ,Population
+ORDER BY 
+    PercentPopulationInfected DESC
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+---- Countries with highest death count 
+
+SELECT 
+      location
+     ,MAX(CAST(Total_Deaths AS bigint)) AS TotalDeathCount
+FROM 
+      CovidDeaths
+WHERE 
+      continent IS NOT NULL
+GROUP BY 
+      location
+ORDER BY 
+      TotalDeathCount DESC
+
+  -----------------------------------------------------------------------------------------------------------------------------------
+
+---- Continents with highest death count
+
+SELECT 
+      continent
+     ,MAX(CAST(Total_Deaths AS bigint)) AS TotalDeathCount
+FROM 
+      CovidDeaths
+WHERE 
+      continent IS NOT NULL
+GROUP BY 
+      continent
+ORDER BY 
+      TotalDeathCount DESC
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+----  Global death percentage by day
+
+SELECT
+      date
+     ,SUM(new_cases) AS total_cases
+     ,SUM(CAST(new_deaths AS int)) AS total_deaths
+     ,SUM(CAST(new_deaths AS int))/sum(new_cases)*100 AS GlobalDeathPercentage
+FROM
+     CovidDeaths
+WHERE 
+     continent IS NOT NULL
+GROUP BY
+     date
+ORDER BY
+      date
+     ,total_cases
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+---- Total global death percentage
+
+SELECT
+      SUM(new_cases) AS total_cases
+     ,SUM(CAST(new_deaths AS int)) AS total_deaths
+     ,SUM(CAST(new_deaths AS int))/sum(new_cases)*100 AS GlobalDeathPercentage
+FROM
+     CovidDeaths
+WHERE 
+     continent IS NOT NULL
+ORDER BY
+     total_cases
+    ,total_deaths
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+---- Total Population vs Vaccination using Join
+
+SELECT
+    cd.continent
+   ,cd.location 
+   ,cd.date
+   ,cd.population
+   ,cv.new_vaccinations 
+FROM 
+    CovidDeaths AS cd 
+JOIN 
+    CovidVacinations AS cv
+ON 
+    cd.location = cv.location 
+		AND cd.date = cv.date 
+WHERE 
+    cv.new_vaccinations IS NOT NULL
+ORDER BY
+    cd.continent
+   ,cd.location
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
