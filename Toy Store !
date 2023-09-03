@@ -8,6 +8,8 @@ CREATE TABLE Store_Items (
 ,num_purchases_two_months int
 )
 
+---- Note: the column name 'num_purchase_two_months' refers to the number of purchases for each item in the past two months of July and August
+
 INSERT INTO Store_Items VALUES
  (1, 'Toy car', 8.00, 'green', 'young child', 123)
 ,(2, 'cards', 2.00, 'multi', 'teenager', 400)
@@ -93,19 +95,19 @@ SELECT item, no_purchases_two_months, purchase_change, ROUND(purchase_change/200
 FROM CTE_purchasepercentage
 ORDER BY no_purchases_two_months DESC
 
---- Categorise the items into 'most popular, semi-popular, not popular', where percentagechange greater than 10 = 'most popular', 
+--- 10.) Categorise the items into 'most popular, semi-popular, not popular', where percentagechange greater than 10 = 'most popular', 
 --- percentagechange less than 10 but greater than -80 = 'semi popular'
 --- everything eles = 'not popular'
 
 WITH CTE_purchase AS
-(SELECT item, no_purchases_two_months, no_purchases_two_months - 200 AS purchase_change
+(SELECT item, no_purchases_two_months, price, child_category, no_purchases_two_months - 200 AS purchase_change
 FROM Store_Items
 ),
 
-CTE_percentagechange AS (SELECT item, no_purchases_two_months, purchase_change, ROUND(purchase_change/200.0 * 100, 2) AS percentagechange
+CTE_percentagechange AS (SELECT item, no_purchases_two_months, purchase_change, price, child_category, ROUND(purchase_change/200.0 * 100, 2) AS percentagechange
 FROM CTE_purchase),
 
-CTE_popularity AS (SELECT item, no_purchases_two_months, percentagechange,
+CTE_popularity AS (SELECT item, no_purchases_two_months, percentagechange, price, child_category,
 CASE 
     WHEN percentagechange > 10 THEN 'most popular'
 	WHEN percentagechange < 10 and percentagechange > -80 THEN 'semi popular'
@@ -114,7 +116,7 @@ END AS popularity
 FROM CTE_percentagechange
 )
 
-SELECT item, no_purchases_two_months, percentagechange, popularity
+SELECT item, no_purchases_two_months, price, child_category, percentagechange, popularity
 FROM CTE_popularity 
 ORDER BY Percentagechange DESC
 
