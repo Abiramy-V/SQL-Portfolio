@@ -1,7 +1,7 @@
 ---- Dataset: Coronavirus (COVID-19) Deaths
 ---- Source: https://ourworldindata.org/covid-deaths
 ---- Queried using MS SQL SERVER
----- SQL skills: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
+---- SQL skills: Joins, CTE's, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
 
 -----------------------------------------------------------------------------------------------------------------------------------
 ---- The two tables that are used in this project are:
