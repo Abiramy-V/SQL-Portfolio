@@ -8,7 +8,7 @@ CREATE TABLE Store_Items (
 ,num_purchases_two_months int
 )
 
----- Note: the column name 'num_purchase_two_months' refers to the number of purchases for each item in the past two months of July and August
+---- Note: the column name 'num_purchase_two_months' refers to the number of purchases for each item in the past two months of July and August (2023)
 
 INSERT INTO Store_Items VALUES
  (1, 'Toy car', 8.00, 'green', 'young child', 123)
@@ -119,6 +119,26 @@ FROM CTE_percentagechange
 SELECT item, no_purchases_two_months, price, child_category, percentagechange, popularity
 FROM CTE_popularity 
 ORDER BY Percentagechange DESC
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------- CONCLUSIONS
+
+-- The objective of this SQL project was to help a theoretical toy store manager identify which items were the 
+-- most popular during the months of July and August in 2023. Additionally, the manager also wanted to identify how popular 
+-- certain toys were during July and August of 2023 compared to the average number for any item sold during July and August from the past three summers (2020-2022).
+-- The only items which have shown an increase in the number of purchases in 2023 compared to average are 'cards', 'uno', 'monopoly', 'jenga' and 'teddybear'
+-- The rest of the items show a decrease in the number of purchases compared to the average
+-- Most popular items are: 'cards', 'uno', 'monopoly', 'jenga' and 'teddybear',
+-- while the least popular are, 'football', 'waterpistol', 'waterballoon' and 'splashpad'
+
+-- The manager has mentioned that every summer since he first opended, the 'least popular' items actually have the most number of sales.
+-- This could be due to the fact that 2023 summer has had fewer sunny days compared to other summers, and more cloudy/rainy days. In addition, there was no 
+-- heatwaves. 
+
+
+
+
+
+
 
 
 
