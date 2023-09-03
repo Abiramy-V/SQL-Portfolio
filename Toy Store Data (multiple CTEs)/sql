@@ -125,15 +125,15 @@ ORDER BY Percentagechange DESC
 -- The objective of this SQL project was to help a theoretical toy store manager identify which items were the 
 -- most popular during the months of July and August in 2023. Additionally, the manager also wanted to identify how popular 
 -- certain toys were during July and August of 2023 compared to the average number for any item sold during July and August from the past three summers (2020-2022).
--- The only items which have shown an increase in the number of purchases in 2023 compared to average are 'cards', 'uno', 'monopoly', 'jenga' and 'teddybear'
--- The rest of the items show a decrease in the number of purchases compared to the average
--- Most popular items are: 'cards', 'uno', 'monopoly', 'jenga' and 'teddybear',
+-- The only items which have shown an increase in the number of purchases in 2023 compared to average are 'cards', 'uno', 'monopoly', 'jenga' and 'teddybear'.
+-- The rest of the items show a decrease in the number of purchases compared to the average.
+-- The most popular items are: 'cards', 'uno', 'monopoly', 'jenga' and 'teddybear',
 -- while the least popular are, 'football', 'waterpistol', 'waterballoon' and 'splashpad'
 
--- The manager has mentioned that every summer since he first opended, the 'least popular' items actually have the most number of sales.
+-- The manager has mentioned that every summer, since he first opended, the 'least popular' items actually have the most number of sales.
 -- This could be due to the fact that 2023 summer has had fewer sunny days compared to other summers, and more cloudy/rainy days. In addition, there was no 
--- heatwaves. 
-
+-- heatwaves. Therefore, more people on average in 2023 summer would spend their time indoors rather than outdoors compared to previous summers. This would explain the
+-- decreased sales of 'wet play' toys and increased sales of 'dry play' toys.
 
 
 
