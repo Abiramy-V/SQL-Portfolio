@@ -1,0 +1,26 @@
+
+CREATE TABLE Store_Items
+(ID INTEGER PRIMARY KEY
+,Item Varchar(50)
+,Price Int
+,main_colour varchar(50)
+,child_category varchar(50)
+,num_purchases_two_months int
+)
+
+INSERT INTO Store_Items VALUES
+(1, 'Toy car', 8.00, 'green', 'young child', 123),
+(2, 'cards', 2.00, 'multi', 'teenager', 400),
+(3, 'ps4', 500.00, 'black', 'teenager', 103),
+(4, 'teddybear', 3.00, 'brown', 'toddler', 230),
+(5, 'waterpistolset', 14.00, 'blue', 'young child', 17),
+(6, 'Toy car', 7.00, 'green', 'young child', 123),
+(7, 'jenga', 17.50, 'beige', 'young child', 255),
+(8, 'monopoly', 27.00, 'multi', 'teenager', 267),
+(9, 'football', 15.50, 'mono', 'young child', 23),
+(10, 'barbiedoll', 12.99, 'multi', 'young child', 129),
+(11, 'babybook', 8.99, 'multi', 'toddler', 108),
+(12, 'squishmallow', 12.99, 'pink', 'toddler', 123),
+(13, 'robot', 7.00, 'silver', 'toddler', 67),
+(14, 'bmxbike', 130.00, 'red', 'teenager', 123),
+(15, 'uno', 4.50, 'mutli', 'teenager', 360)
