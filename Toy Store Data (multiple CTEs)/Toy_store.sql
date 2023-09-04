@@ -32,6 +32,8 @@ INSERT INTO Store_Items VALUES
 SELECT COUNT(item) AS number_of_items
 FROM Store_Items
 
+--Answer: 15--
+
 --- 2.) Order by the price of the item, from most to least expensive
 SELECT item, price
 FROM Store_Items
@@ -95,6 +97,7 @@ SELECT item, no_purchases_two_months, purchase_change, ROUND(purchase_change/200
 FROM CTE_purchasepercentage
 ORDER BY no_purchases_two_months DESC
 
+	
 --- 10.) Categorise the items into 'most popular, semi-popular, not popular', where percentagechange greater than 10 = 'most popular', 
 --- percentagechange less than 10 but greater than -80 = 'semi popular'
 --- everything eles = 'not popular'
