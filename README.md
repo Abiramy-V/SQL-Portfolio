@@ -1,3 +1,3 @@
 # Abiramy's SQL Portfolio
 
-Welcome to my SQL portfolio ! This repository contains a few examples of SQl queries that I have written
+Welcome to my SQL portfolio ! This repository contains a examples of SQl that I have written for a few projects
